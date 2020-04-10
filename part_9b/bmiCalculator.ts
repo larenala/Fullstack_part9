@@ -1,7 +1,6 @@
 export const calculateBmi = (height: number, weight: number):string => {
-  const heightToUse = height / 100
-  const bmi = weight / (heightToUse ^2)
-  console.log(bmi)
+  const heightToUse = height / 100;
+  const bmi = weight / (heightToUse ^2);
   switch (true) {
     case (bmi > 0 && bmi < 15): 
       return 'Very severely underweight';
@@ -22,6 +21,6 @@ export const calculateBmi = (height: number, weight: number):string => {
     default:
       return 'Give a real weight and height'; 
   }
-}
+};
 
-console.log(calculateBmi(180, 74))
+console.log(calculateBmi(180, 74));
