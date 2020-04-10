@@ -8,7 +8,7 @@ interface Result {
   average: number,
 }
 
-const calculateExercises = (target:number, hours: Array<number>):Result => {
+export const calculateExercises = (target:number, hours: Array<number>):Result => {
   const reducer = (accumulator:number, item:number):number => {
     return accumulator + item;
   };
