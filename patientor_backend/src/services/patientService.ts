@@ -1,6 +1,6 @@
 import patientData from '../../data/patients';
 
-import { PatientEntry, NonSensitivePatientEntry, NewPatientEntry } from '../types/PatientEntry';
+import { PatientEntry, NonSensitivePatientEntry, NewPatientEntry, PublicPatient } from '../types/PatientEntry';
 
 // const patients: Array<PatientEntry> = patientData;
 
@@ -8,13 +8,18 @@ const getEntries = ():Array<NonSensitivePatientEntry> => {
   return patientData;
 };
 
+const getWithJournalEntries = (id: string): PatientEntry | undefined => {
+  return patientData.find(patient => patient.id === id);;
+}
+
 const getNonSensitiveEntries = (): NonSensitivePatientEntry [] => {
-  return patientData.map(({ id, name, dateOfBirth, gender, occupation }) => ({
+  return patientData.map(({ id, name, dateOfBirth, gender, occupation, entries }) => ({
     id,
     name,
     dateOfBirth,
     gender,
     occupation,
+    entries,
   }));
 };
 
@@ -34,4 +39,5 @@ export default {
   getEntries,
   getNonSensitiveEntries,
   addEntry,
+  getWithJournalEntries,
 }
