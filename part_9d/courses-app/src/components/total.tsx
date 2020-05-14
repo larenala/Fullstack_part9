@@ -4,7 +4,7 @@ const Total: React.FC<{ courseParts: Array<{ exerciseCount: number }> }>= ({cour
   return (
     <div>
       <p>
-        Number of exercises{" "}
+        Total number of exercises{" "}
         {courseParts.reduce((carry, part) => carry + part.exerciseCount, 0)}
       </p>
     </div>
