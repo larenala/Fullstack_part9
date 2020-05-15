@@ -1,6 +1,6 @@
 import patientData from '../../data/patients';
 
-import { PatientEntry, NonSensitivePatientEntry, NewPatientEntry, PublicPatient } from '../types/PatientEntry';
+import { PatientEntry, NonSensitivePatientEntry, NewPatientEntry } from '../types/PatientEntry';
 
 // const patients: Array<PatientEntry> = patientData;
 

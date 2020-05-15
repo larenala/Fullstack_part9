@@ -1,4 +1,4 @@
-import { NewPatientEntry, Gender } from '../types/PatientEntry';
+import { NewPatientEntry, Gender, Entry } from '../types/PatientEntry';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
   const isString = (text:any): text is string => {
@@ -34,6 +34,19 @@ import { NewPatientEntry, Gender } from '../types/PatientEntry';
     return gender;
   };
 
+  const isEntry = (param:any): param is Entry => {
+    if (param.type === "Hospital" || param.type === "HealthCheckEntry" || param.type === "OccupationalHealthCheckEntry") {
+      return true;
+    }
+    return false;
+  };
+
+  const parseEntry = (entry: any): Entry => {
+    if (entry && !isEntry) {
+      throw new Error('Incorrect entry.');
+    }
+    return entry;
+  }
 
 export const toNewPatientEntry = (object:any): NewPatientEntry => {
   return {
@@ -42,6 +55,6 @@ export const toNewPatientEntry = (object:any): NewPatientEntry => {
     ssn: parseString(object.ssn),
     gender: parseGender(object.gender),
     occupation: parseString(object.occupation),
-    entries: []
+    entries: [parseEntry(object.entries)]
   };
 };
