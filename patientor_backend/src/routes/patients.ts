@@ -8,6 +8,11 @@ router.get('/', (_req, res) => {
   res.send(patientService.getNonSensitiveEntries());
 });
 
+router.get('/ping', (__req, res) => {
+  console.log('Pinged')
+  res.send('pong');
+});
+
 router.get('/:id', (req, res) => {
   res.send(patientService.getWithJournalEntries(req.params.id));
 });

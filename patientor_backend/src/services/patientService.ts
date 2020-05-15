@@ -4,7 +4,7 @@ import { PatientEntry, NonSensitivePatientEntry, NewPatientEntry, PublicPatient 
 
 // const patients: Array<PatientEntry> = patientData;
 
-const getEntries = ():Array<NonSensitivePatientEntry> => {
+const getEntries = ():Array<PatientEntry> => {
   return patientData;
 };
 
