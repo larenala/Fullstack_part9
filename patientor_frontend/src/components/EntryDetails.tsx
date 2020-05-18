@@ -11,7 +11,6 @@ const EntryDetails: React.FC<{ entry: Entry }> = ({ entry }) => {
       `Unhandled discriminated union member: ${JSON.stringify(value)}`
     );
   };
-  console.log(entry)
 
     switch(entry.type) {
       case "HealthCheck": 
