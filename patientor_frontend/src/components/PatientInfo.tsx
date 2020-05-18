@@ -8,7 +8,7 @@ import { Icon } from 'semantic-ui-react';
 
 const PatientInfo = () => {
   const { id } = useParams();
-  const [{ patients }, dispatch] = useStateValue();
+  const [{ patients, diagnoses }, dispatch] = useStateValue();
 
   useEffect(() => {
     const fetchSinglePatient = async () => {
@@ -22,7 +22,7 @@ const PatientInfo = () => {
       }
     };
     fetchSinglePatient();  
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const getGenderIcon = ():string | undefined => {
     let icon = "genderless";
@@ -50,7 +50,12 @@ const PatientInfo = () => {
                   <p><em>{entry.description}</em></p>
                   <ul>
                     {entry.diagnosisCodes && 
-                      Object.values(entry.diagnosisCodes).map((e:any) => <li>{e}</li>
+                      diagnoses &&
+                      Object.values(entry.diagnosisCodes).map((e:any) => {
+                        if (diagnoses[e])
+                          return <li key={e}>{e} {diagnoses[e].name}</li>
+                        return null;
+                      }
                     )}
                   </ul>
                   <br />
@@ -63,7 +68,12 @@ const PatientInfo = () => {
                   <p><em>{entry.description}</em></p>
                   <ul>
                     {entry.diagnosisCodes && 
-                      Object.values(entry.diagnosisCodes).map((e:any) => <li>{e}</li>
+                      diagnoses &&
+                      Object.values(entry.diagnosisCodes).map((e:any) => {
+                        if (diagnoses[e])
+                          return <li key={e}>{e} {diagnoses[e].name}</li>
+                        return null;
+                      }
                     )}
                   </ul>
                   <br />
@@ -76,14 +86,19 @@ const PatientInfo = () => {
                   <p><em>{entry.description}</em></p>
                   <ul>
                     {entry.diagnosisCodes && 
-                      Object.values(entry.diagnosisCodes).map((e:any) => <li>{e}</li>
+                      diagnoses &&
+                      Object.values(entry.diagnosisCodes).map((e:any) => {
+                        if (diagnoses[e])
+                          return <li key={e}>{e} {diagnoses[e].name}</li>
+                        return null;
+                      }
                     )}
                   </ul>
                   <br />
                 </div>
               );
             default:
-              break;
+              return <></>;
           }           
           }
         )}
