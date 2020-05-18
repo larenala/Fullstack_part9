@@ -35,7 +35,7 @@ import { NewPatientEntry, Gender, Entry } from '../types/PatientEntry';
   };
 
   const isEntry = (param:any): param is Entry => {
-    if (param.type === "Hospital" || param.type === "HealthCheckEntry" || param.type === "OccupationalHealthCheckEntry") {
+    if (param.type === "Hospital" || param.type === "HealthCheck" || param.type === "OccupationalHealthCare") {
       return true;
     }
     return false;

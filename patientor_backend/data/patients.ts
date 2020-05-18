@@ -36,7 +36,7 @@ const patients: PatientEntry[] = [
         {
           id: 'fcd59fa6-c4b4-4fec-ac4d-df4fe1f85f62',
           date: '2019-08-05',
-          type: 'OccupationalHealthcare',
+          type: 'OccupationalHealthCare',
           specialist: 'MD House',
           employerName: 'HyPD',
           diagnosisCodes: ['Z57.1', 'Z74.3', 'M51.2'],
@@ -78,7 +78,7 @@ const patients: PatientEntry[] = [
           id: 'fcd59fa6-c4b4-4fec-ac4d-df4fe1f85f62',
           date: '2019-09-10',
           specialist: 'MD House',
-          type: 'OccupationalHealthcare',
+          type: 'OccupationalHealthCare',
           employerName: 'FBI',
           description: 'Prescriptions renewed.',
         },

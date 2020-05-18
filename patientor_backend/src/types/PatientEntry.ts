@@ -22,17 +22,16 @@ interface BaseEntry {
 }
 
 interface OccupationalHealthCare extends BaseEntry {
-  type: "HealthCheck";
-  healthCheckRating: HealthCheckRating;
+  type: "OccupationalHealthCare";
   employerName: string;
-  sickLeave: {
+  sickLeave?: {
     startDate: string;
     endDate: string;
   }
 }
 
 interface Hospital extends BaseEntry {
-  type: "HospitalEntry",
+  type: "Hospital",
   discharge: {
     date: string;
     criteria: string;
@@ -44,7 +43,6 @@ interface HealthCheck extends BaseEntry {
   healthCheckRating: HealthCheckRating;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export type Entry =
   | Hospital
   | OccupationalHealthCare

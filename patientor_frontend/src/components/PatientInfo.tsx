@@ -33,11 +33,60 @@ const PatientInfo = () => {
   }
 
   if (id && patients[id]) {
+    const patientEntries = patients[id].entries[0]
+
     return (
       <div className="patient-info">
         <h1>{patients[id].name} <Icon className={getGenderIcon()}></Icon></h1>
         <p>Ssn: {patients[id].ssn}</p>
         <p>Occupation: {patients[id].occupation}</p>
+        <h2>Entries</h2>
+        {Object.values(patientEntries).map(entry => {
+          switch(entry.type) {
+            case "HealthCheck": 
+              return (
+                <div>
+                  <p><strong>{entry.date}</strong></p>
+                  <p><em>{entry.description}</em></p>
+                  <ul>
+                    {entry.diagnosisCodes && 
+                      Object.values(entry.diagnosisCodes).map((e:any) => <li>{e}</li>
+                    )}
+                  </ul>
+                  <br />
+                </div>
+              );
+            case "Hospital": 
+              return (
+                <div>
+                  <p><strong>{entry.date}</strong></p>
+                  <p><em>{entry.description}</em></p>
+                  <ul>
+                    {entry.diagnosisCodes && 
+                      Object.values(entry.diagnosisCodes).map((e:any) => <li>{e}</li>
+                    )}
+                  </ul>
+                  <br />
+                </div>
+              );
+            case "OccupationalHealthCare":
+              return(
+                <div>
+                  <p><strong>{entry.date}</strong></p>
+                  <p><em>{entry.description}</em></p>
+                  <ul>
+                    {entry.diagnosisCodes && 
+                      Object.values(entry.diagnosisCodes).map((e:any) => <li>{e}</li>
+                    )}
+                  </ul>
+                  <br />
+                </div>
+              );
+            default:
+              break;
+          }           
+          }
+        )}
       </div>
     );
     } else {
