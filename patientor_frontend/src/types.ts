@@ -25,7 +25,7 @@ interface BaseEntry {
   diagnosisCodes?: Array<Diagnosis['code']>;
 }
 
-interface OccupationalHealthCare extends BaseEntry {
+export interface OccupationalHealthCare extends BaseEntry {
   type: "OccupationalHealthCare";
   employerName: string;
   sickLeave?: {
@@ -34,7 +34,7 @@ interface OccupationalHealthCare extends BaseEntry {
   }
 }
 
-interface Hospital extends BaseEntry {
+export interface Hospital extends BaseEntry {
   type: "Hospital",
   discharge: {
     date: string;

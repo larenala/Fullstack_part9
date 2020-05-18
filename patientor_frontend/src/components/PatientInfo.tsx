@@ -4,6 +4,7 @@ import axios from 'axios'
 import {apiBaseUrl} from '../constants'
 import {Patient} from '../types'
 import { useStateValue, updatePatient } from "../state";
+import EntryDetails from './EntryDetails';
 import { Icon } from 'semantic-ui-react';
 
 const PatientInfo = () => {
@@ -41,73 +42,13 @@ const PatientInfo = () => {
         <p>Ssn: {patients[id].ssn}</p>
         <p>Occupation: {patients[id].occupation}</p>
         <h2>Entries</h2>
-        {Object.values(patientEntries).map(entry => {
-          switch(entry.type) {
-            case "HealthCheck": 
-              return (
-                <div>
-                  <p><strong>{entry.date}</strong></p>
-                  <p><em>{entry.description}</em></p>
-                  <ul>
-                    {entry.diagnosisCodes && 
-                      diagnoses &&
-                      Object.values(entry.diagnosisCodes).map((e:any) => {
-                        if (diagnoses[e])
-                          return <li key={e}>{e} {diagnoses[e].name}</li>
-                        return null;
-                      }
-                    )}
-                  </ul>
-                  <br />
-                </div>
-              );
-            case "Hospital": 
-              return (
-                <div>
-                  <p><strong>{entry.date}</strong></p>
-                  <p><em>{entry.description}</em></p>
-                  <ul>
-                    {entry.diagnosisCodes && 
-                      diagnoses &&
-                      Object.values(entry.diagnosisCodes).map((e:any) => {
-                        if (diagnoses[e])
-                          return <li key={e}>{e} {diagnoses[e].name}</li>
-                        return null;
-                      }
-                    )}
-                  </ul>
-                  <br />
-                </div>
-              );
-            case "OccupationalHealthCare":
-              return(
-                <div>
-                  <p><strong>{entry.date}</strong></p>
-                  <p><em>{entry.description}</em></p>
-                  <ul>
-                    {entry.diagnosisCodes && 
-                      diagnoses &&
-                      Object.values(entry.diagnosisCodes).map((e:any) => {
-                        if (diagnoses[e])
-                          return <li key={e}>{e} {diagnoses[e].name}</li>
-                        return null;
-                      }
-                    )}
-                  </ul>
-                  <br />
-                </div>
-              );
-            default:
-              return <></>;
-          }           
-          }
-        )}
+        {Object.values(patientEntries).map(entry => <EntryDetails entry={entry} /> )}   
       </div>
     );
     } else {
       return (
         <div>
-          <p>wrong id</p>
+          <p>Wrong id</p>
         </div>
       )
     }
