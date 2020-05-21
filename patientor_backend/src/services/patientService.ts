@@ -1,6 +1,7 @@
 import patientData from '../../data/patients';
 
-import { PatientEntry, NonSensitivePatientEntry, NewPatientEntry } from '../types/PatientEntry';
+import { PatientEntry, NonSensitivePatientEntry, NewPatientEntry, Entry } from '../types/PatientEntry';
+import patientEntries from '../../data/patients';
 
 // const patients: Array<PatientEntry> = patientData;
 
@@ -27,17 +28,28 @@ const addEntry = (
   entry: NewPatientEntry
 ):PatientEntry => {
   const newPatientEntry = {
-    id: "d27736ec-f723-11e9-8f0b-362b9e155667",
+    id: Math.random().toString(36).slice(2),
     ...entry
   };
   patientData.push(newPatientEntry);
   return newPatientEntry;
 };
 
+const updateEntry = (id: string, entry: Entry): PatientEntry | undefined => {
+  const patient = Object.values(patientData).find(p => p.id === id)
+  
+  if (patient && patient.entries ) {
+    const id = patient.id
+    const updatedEntries = patient.entries.concat(entry)
+    patient.entries = updatedEntries
+  } 
+  return patient;
+}
 
 export default {
   getEntries,
   getNonSensitiveEntries,
   addEntry,
   getWithJournalEntries,
+  updateEntry
 }

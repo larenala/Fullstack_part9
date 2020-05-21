@@ -21,11 +21,23 @@ router.post('/', (req, res) => {
   try {
     const newPatientEntry  = toNewPatientEntry(req.body);
     const addedEntry = patientService.addEntry(newPatientEntry);
-    res.json(addedEntry)
+    res.json(addedEntry);
   } catch (e) {
     res.status(400).send(e.message);
   }
   
+});
+
+router.post('/:id/entries', (req, res) => {
+  const { id } = req.params;
+  const entry = req.body;
+
+  try {
+    const updated = patientService.updateEntry(id, entry);
+    res.json(updated);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
 });
 
 export default router;

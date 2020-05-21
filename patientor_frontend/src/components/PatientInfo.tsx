@@ -1,15 +1,28 @@
 import React, {useEffect} from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios'
-import {apiBaseUrl} from '../constants'
-import {Patient} from '../types'
+import { useParams, useHistory } from 'react-router-dom';
+import axios from 'axios';
+import {apiBaseUrl} from '../constants';
+import {Patient, Entry} from '../types';
+import AddEntryModal from '../AddEntryModal';
+import { DiaryEntryFormValues } from '../AddEntryModal/DiaryEntryForm';
 import { useStateValue, updatePatient } from "../state";
 import EntryDetails from './EntryDetails';
-import { Icon } from 'semantic-ui-react';
+import { Button, Icon, Segment } from 'semantic-ui-react';
 
 const PatientInfo = () => {
   const { id } = useParams();
   const [{ patients, diagnoses }, dispatch] = useStateValue();
+  const [error, setError] = React.useState<string | undefined>();
+  const [modalOpen, setModalOpen] = React.useState<boolean>(false);
+
+  const openModal = (): void => setModalOpen(true);
+
+  const closeModal = (): void => {
+    setModalOpen(false);
+    setError(undefined);
+  };
+  const history = useHistory();
+
 
   useEffect(() => {
     const fetchSinglePatient = async () => {
@@ -34,7 +47,23 @@ const PatientInfo = () => {
   }
 
   if (id && patients[id]) {
-    const patientEntries = patients[id].entries[0]
+    const patientEntries = patients[id].entries
+  
+  const submitNewEntry = async (values: DiaryEntryFormValues) => {
+    try {
+      const { data: newEntry } = await axios.post<Entry>(
+        `${apiBaseUrl}/patients/${id}/entries`,
+        values
+      );
+      const patient = patients[id];
+      dispatch(updatePatient(patient));
+      closeModal();
+      history.push('/')
+    } catch (e) {
+      console.error(e.response.data);
+      setError(e.response.data.error);
+    }
+  };
 
     return (
       <div className="patient-info">
@@ -42,7 +71,14 @@ const PatientInfo = () => {
         <p>Ssn: {patients[id].ssn}</p>
         <p>Occupation: {patients[id].occupation}</p>
         <h2>Entries</h2>
-        {Object.values(patientEntries).map(entry => <EntryDetails entry={entry} /> )}   
+        {patientEntries && patientEntries.map(entry => <EntryDetails key={entry.id} entry={entry} /> )}
+        <Button onClick={() => openModal()}>Add New Entry</Button>
+        <AddEntryModal
+          modalOpen={modalOpen}
+          onSubmit={submitNewEntry}
+          error={error}
+          onClose={closeModal}
+        />
       </div>
     );
     } else {

@@ -41,11 +41,16 @@ import { NewPatientEntry, Gender, Entry } from '../types/PatientEntry';
     return false;
   };
 
-  const parseEntry = (entry: any): Entry => {
-    if (entry && !isEntry) {
-      throw new Error('Incorrect entry.');
+  const parseEntries = (entries: any): Entry[] => {
+    if (entries) {
+      entries.forEach((entry:any) => {
+        if (entry && !isEntry) {
+          throw new Error('Incorrect entry.');
+        }
+        return entries;
+      });
     }
-    return entry;
+    return [];
   }
 
 export const toNewPatientEntry = (object:any): NewPatientEntry => {
@@ -55,6 +60,6 @@ export const toNewPatientEntry = (object:any): NewPatientEntry => {
     ssn: parseString(object.ssn),
     gender: parseGender(object.gender),
     occupation: parseString(object.occupation),
-    entries: [parseEntry(object.entries)]
+    entries: parseEntries(object.entries)
   };
 };
